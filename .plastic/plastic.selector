@@ -1,4 +1,0 @@
-repository "SurvivalGame@zyept@cloud"
-  path "/"
-    br "/main"
-    co "/main"
