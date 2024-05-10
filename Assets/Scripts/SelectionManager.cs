@@ -11,6 +11,12 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject interaction_info_UI; 
     Text interaction_text;
+
+    public Image centerDotImage;
+    public Image handIcon;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,17 +47,36 @@ public class SelectionManager : MonoBehaviour
                 selectedObject = interactable.gameObject;
                 interaction_text.text =interactable.GetItemName();
                 interaction_info_UI.SetActive(true);
+
+                if(interactable.CompareTag("pickable"))
+                {
+                    centerDotImage.gameObject.SetActive(false);
+                    handIcon.gameObject.SetActive(true);
+                }
+                else
+                {
+                    handIcon.gameObject.SetActive(false);
+                    centerDotImage.gameObject.SetActive(true);
+                }
+
+
+
+
             }
             else //if there is a hit, but without an interactable script.
             {
                 onTarget=false;
                 interaction_info_UI.SetActive(false);
+                handIcon.gameObject.SetActive(false);
+                centerDotImage.gameObject.SetActive(true);
             }
         }
         else // if there is no hit at all.
         {
             onTarget=!false;
             interaction_info_UI.SetActive(false);
+            handIcon.gameObject.SetActive(false);
+            centerDotImage.gameObject.SetActive(true);
         }
     }
 }

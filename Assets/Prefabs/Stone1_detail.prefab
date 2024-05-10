@@ -12,9 +12,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone1_detail
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
+      propertyPath: m_TagString
+      value: pickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
       propertyPath: m_LocalScale.x
@@ -30,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.145
+      value: 32.21
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
       propertyPath: m_LocalPosition.y
@@ -81,6 +85,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6143323838263420741}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9099364633003511695}
   m_SourcePrefab: {fileID: 100100000, guid: dd83a56d3f3dcf048a9d5d85577db695, type: 3}
 --- !u!1 &4874367222305082774 stripped
 GameObject:
@@ -121,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  ItemName: Stonee
+  ItemName: Stone
 --- !u!65 &6143323838263420741
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -143,3 +150,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.28736615, y: 0.14814663, z: 0.3020066}
   m_Center: {x: -0.0065220594, y: 0.074073315, z: -0.000000022351742}
+--- !u!225 &-9099364633003511695
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874367222305082774}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
