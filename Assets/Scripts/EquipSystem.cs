@@ -83,9 +83,7 @@ public class EquipSystem : MonoBehaviour
 
     void SelectQuickSlot(int number)
     {
-        Debug.Log("Selecting slot: " + number); // Add this line
-
-        if (checkIfSlotIsFull(number))
+        if (checkIfSlotIsFull(number) == true)
         {
             if (selectedNumber != number)
             {
@@ -94,13 +92,14 @@ public class EquipSystem : MonoBehaviour
                 // Unselect previously selected item
                 if (selectedItem != null)
                 {
-                    selectedItem.GetComponent<InventoryItem>().isSelected = false;
+                    selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
                 }
 
                 selectedItem = getSelectedItem(number);
                 selectedItem.GetComponent<InventoryItem>().isSelected = true;
 
                 SetEquippedModel(selectedItem);
+
             }
             else
             {
@@ -108,37 +107,35 @@ public class EquipSystem : MonoBehaviour
 
                 if (selectedItem != null)
                 {
-                    selectedItem.GetComponent<InventoryItem>().isSelected = false;
+                    selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
                     selectedItem = null;
                 }
 
                 if (selectedItemModel != null)
                 {
                     DestroyImmediate(selectedItemModel.gameObject);
+                    selectedItemModel = null;
                 }
+
+
             }
-        }
-        else
-        {
-            Debug.LogWarning("Selected slot is empty!"); // Add this line
         }
     }
 
 
     private void SetEquippedModel(GameObject selectedItem)
     {
+        if (selectedItemModel != null)
+        {
+            DestroyImmediate(selectedItemModel.gameObject);
+            selectedItemModel = null;
+        }
+
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        Debug.Log("Selected Item Name: " + selectedItemName); // Add this line
-        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName),
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
             new Vector3(0.6f, 0, 0.4f), Quaternion.Euler(0, -12.5f, -20f));
-        if (itemModel != null)
-        {
-            itemModel.transform.SetParent(toolHolder.transform, false);
-        }
-        else
-        {
-            Debug.LogError("Item model is null! Check if the model exists in Resources."); // Add this line
-        }
+        selectedItemModel.transform.SetParent(toolHolder.transform, false);
+
     }
 
 
