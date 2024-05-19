@@ -87,7 +87,7 @@ public class SelectionManager : MonoBehaviour
         }
         else // if there is no hit at all.
         {
-            onTarget=!false;
+            onTarget=false;
             interaction_info_UI.SetActive(false);
             handIcon.gameObject.SetActive(false);
             centerDotImage.gameObject.SetActive(true);
