@@ -133,7 +133,7 @@ public class EquipSystem : MonoBehaviour
 
         string selectedItemName = selectedItem.name;
         selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
-            new Vector3(0.86f, 1.611f, 1.513f), Quaternion.Euler(-24.054f, -228.464f, 30.078f));
+            new Vector3(0.93f, 1.48f, 1.29f), Quaternion.Euler(10.343f, -204.645f, -0.823f));
         selectedItemModel.transform.SetParent(toolHolder.transform, false);
 
     }
