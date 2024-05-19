@@ -21,7 +21,11 @@ public class EquipableItem : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetMouseButtonDown(0)) 
+        if(Input.GetMouseButtonDown(0) &&
+            InventorySystem.Instance.isOpen == false &&
+            CraftingSystem.Instance.isOpen == false &&
+            SelectionManager.Instance.handIsVisible == false
+            ) 
         {
             animator.SetTrigger("hit");
         }
