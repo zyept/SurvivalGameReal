@@ -18,7 +18,8 @@ public class SelectionManager : MonoBehaviour
 
     public bool handIsVisible;
 
-
+    public GameObject selectedTree;
+    public GameObject chopHolder;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,29 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
             InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+
+            ChoppableTree choppabletree= selectionTransform.GetComponent<ChoppableTree>();
+
+
+            if (choppabletree && choppabletree.playerInRange)
+            {
+                choppabletree.canBeChopped = true;
+                selectedTree = choppabletree.gameObject;
+                chopHolder.gameObject.SetActive(true);
+            }
+            else
+            {
+                if(selectedTree != null)
+                {
+                    selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
+                    selectedTree = null;
+                    chopHolder.gameObject.SetActive(false);
+                }
+            }
+
+
+
+
 
             if (interactable && interactable.playerInRange)
             {
