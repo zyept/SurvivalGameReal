@@ -4515,7 +4515,6 @@ GameObject:
   m_Component:
   - component: {fileID: 798208537}
   - component: {fileID: 798208539}
-  - component: {fileID: 798208538}
   - component: {fileID: 798208540}
   m_Layer: 5
   m_Name: ResourceHealthBar
@@ -4546,20 +4545,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5.515, y: -68.975}
   m_SizeDelta: {x: 216.625, y: 107.951}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &798208538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798208536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da4f9ec26a990dd468793e626244b1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthCounter: {fileID: 0}
-  PlayerState: {fileID: 653005140}
 --- !u!114 &798208539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4623,7 +4608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb755ae21563eb4eb5b270eab1fbef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
   globalState: {fileID: 1236162225}
 --- !u!1 &806141033
 GameObject:
