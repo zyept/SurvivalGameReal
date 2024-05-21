@@ -10,7 +10,7 @@ public class ChoppableTree : MonoBehaviour
     public float treeMaxHealth;
     public float treeHealth;
 
-    private void start()
+    private void Start()
     {
         treeHealth = treeMaxHealth;
     }
@@ -24,13 +24,16 @@ public class ChoppableTree : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        { playerInRange = false; }
+        { 
+            playerInRange = false; 
+        }
     }
 
     public void GetHit()
     {
         StartCoroutine(hit());
     }
+    
     public IEnumerator hit()
     {
         yield return new WaitForSeconds(0.6f);
