@@ -34,7 +34,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
 
     public bool isSelected;
-
+    public bool isUseable;
+    
 
     private void Start()
     {
@@ -93,10 +94,50 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
 
             }
+            if (isUseable)
+            {
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                gameObject.SetActive(false);
+                UseItem();
+            }
         }
+    }
+    private void UseItem()
+    {
+        itemInfoUI.SetActive(false);
+        InventorySystem.Instance.isOpen = false;
+        InventorySystem.Instance.inventoryScreenUI.SetActive(false);
+        CraftingSystem.Instance.isOpen = false;
+        CraftingSystem.Instance.toolsScreenUI.SetActive(false);
+        CraftingSystem.Instance.craftingScreenUI.SetActive(false);
+        CraftingSystem.Instance.survivalScreenUI.SetActive(false);
+        CraftingSystem.Instance.refineScreenUI.SetActive(false);
+        CraftingSystem.Instance.constructionScreenUI.SetActive(false);
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
+        SelectionManager.Instance.EnableSelection();
+        SelectionManager.Instance.enabled = true;
 
+        switch (gameObject.name)
+        {
+            case "Foundation(Clone)":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            case "Foundation":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            case "Wall(Clone)":
+                ConstructionManager.Instance.ActivateConstructionPlacement("WallModel");
+                break;
+            case "Wall":
+                ConstructionManager.Instance.ActivateConstructionPlacement("WallModel");
+                break;
+
+            default:
+                break;
+        }
     }
 
     // Triggered when the mouse button is released over the item that has this script.
@@ -110,6 +151,12 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 InventorySystem.Instance.ReCalculeList();
                 CraftingSystem.Instance.RefreshNeededItems();
             }
+            //if(isUseable && itemPendingToBeUsed == gameObject)
+            //{
+            //    DestroyImmediate(gameObject);
+            //    InventorySystem.Instance.ReCalculeList();
+            //    CraftingSystem.Instance.RefreshNeededItems();
+            //}
         }
     }
 

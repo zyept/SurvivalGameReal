@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89003537c17563a40897da493dfee0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrashable: 0
+  isTrashable: 1
   thisName: Log
   thisDescription: This peace of raw wood  only looks heavy, it is actually lighweight
     and can be carried around with ease. It is also the weakest among the different
