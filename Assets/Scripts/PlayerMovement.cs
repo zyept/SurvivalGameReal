@@ -32,6 +32,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DialogSystem.Instance.dialogUIActive==false)
+        {
+            Movement();
+        }
+    }
+    public void Movement()
+    {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -57,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         // Yerçekimi ve zýplama iþlemini gerçekleþtirmek için hareketi güncelle
         controller.Move(velocity * Time.deltaTime);
 
-        if (lastPosition!=gameObject.transform.position && isGrounded==true)
+        if (lastPosition != gameObject.transform.position && isGrounded == true)
         {
             isMoving = true;
             SoundManager.Instance.PlaySound(SoundManager.Instance.grassWalkSound);
@@ -67,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
             SoundManager.Instance.grassWalkSound.Stop();
         }
-        lastPosition=gameObject.transform.position;
+        lastPosition = gameObject.transform.position;
     }
 
 }
