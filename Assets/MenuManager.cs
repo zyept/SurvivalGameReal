@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M)&& !isMenuOpen)
+        if (Input.GetKeyDown(KeyCode.M) && !isMenuOpen)
         {
             uiCanvas.SetActive(false);
             menuCanvas.SetActive(true);
@@ -42,7 +42,7 @@ public class MenuManager : MonoBehaviour
 
 
 
-        }else if(Input.GetKeyDown(KeyCode.M) && !isMenuOpen)
+        } else if (Input.GetKeyDown(KeyCode.M) && !isMenuOpen)
         {
             saveMenu.SetActive(false);
             settingsMenu.SetActive(false);
@@ -57,14 +57,14 @@ public class MenuManager : MonoBehaviour
             isMenuOpen = false;
 
 
-            if (CraftingSystem.Instance.isOpen==false && InventorySystem.Instance.isOpen==false)
+            if (CraftingSystem.Instance.isOpen == false && InventorySystem.Instance.isOpen == false)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
 
             }
-            
+
 
 
 
@@ -73,4 +73,8 @@ public class MenuManager : MonoBehaviour
             SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
         }
     }
+
+
 }
+
+

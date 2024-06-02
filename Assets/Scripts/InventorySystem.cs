@@ -9,12 +9,17 @@ public class InventorySystem : MonoBehaviour
     public GameObject ItemInfoUi;
 
     public static InventorySystem Instance { get; set; }
+
     public GameObject inventoryScreenUI;
 
     public List<GameObject> slotList = new List<GameObject>(); //list of slots
+
     public List<string> itemList = new List<string>(); //name of item inside slots (slotlist)
+
     private GameObject itemToAdd;
+
     private GameObject whatSlotToEquip;
+
 
 
     public bool isOpen;
@@ -25,7 +30,7 @@ public class InventorySystem : MonoBehaviour
     public Text pickupName;
     public Image pickupImage;
 
-
+    public List<string> itemsPickedup;
 
     private void Awake()
     {
@@ -96,7 +101,18 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string itemName)
     {
-        SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
+
+
+
+        if(SaveManager.Instance.isLoading == false)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
+        }
+        
+
+
+
+
             whatSlotToEquip = FindNextEmptySlot();
             itemToAdd =Instantiate(Resources.Load<GameObject>(itemName), whatSlotToEquip.transform.position, whatSlotToEquip.transform.rotation);
             itemToAdd.transform.SetParent(whatSlotToEquip.transform);
