@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.30311894, g: 0.42983747, b: 0.49528372, a: 1}
+  m_IndirectSpecularColor: {r: 0.3031613, g: 0.42988697, b: 0.49529225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25805,6 +25805,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   isTalkingWithPlayer: 0
+  quests:
+  - accepted: 0
+    declined: 0
+    initialDialogCompleted: 0
+    isCompleted: 0
+    hasNoRequirements: 0
+    info: {fileID: 11400000, guid: d7322ad031da0e044b4350e03aac7419, type: 2}
+  currentActiveQuest:
+    accepted: 0
+    declined: 0
+    initialDialogCompleted: 0
+    isCompleted: 0
+    hasNoRequirements: 0
+    info: {fileID: 0}
+  activeQuestIndex: 0
+  firstTimeInteraction: 1
+  currentDialog: 0
 --- !u!65 &1465954391
 BoxCollider:
   m_ObjectHideFlags: 0
