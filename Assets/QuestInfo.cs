@@ -44,4 +44,5 @@ public class QuestInfo : ScriptableObject
 
     public string secondRequirmentItem;
     public int secondRequirementAmount;
+    internal string secondRequirementItem;
 }
