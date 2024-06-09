@@ -20,6 +20,9 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject selectedTree;
     public GameObject chopHolder;
+
+    public GameObject selectedStorageBox;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,16 +71,6 @@ public class SelectionManager : MonoBehaviour
                 }
                 
             }
-            else
-            {
-                interaction_text.text = "";
-                interaction_info_UI.SetActive(false);
-            }
-
-
-
-
-
 
             if (choppabletree && choppabletree.playerInRange)
             {
@@ -87,7 +80,7 @@ public class SelectionManager : MonoBehaviour
             }
             else
             {
-                if(selectedTree != null)
+                if (selectedTree != null)
                 {
                     selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
                     selectedTree = null;
@@ -96,58 +89,152 @@ public class SelectionManager : MonoBehaviour
             }
 
 
-
-
-
             if (interactable && interactable.playerInRange)
             {
                 onTarget = true;
                 selectedObject = interactable.gameObject;
-                interaction_text.text =interactable.GetItemName();
+                interaction_text.text = interactable.GetItemName();
                 interaction_info_UI.SetActive(true);
 
-                if(interactable.CompareTag("pickable"))
+               // centerDotImage.gameObject.SetActive(false);
+               // handIcon.gameObject.SetActive(true);
+               // handIsVisible = true;
+             
+
+            }
+            StorageBox storageBox = selectionTransform.GetComponent<StorageBox>();
+
+            if(storageBox && storageBox.playerInRange && PlacementSystem.Instance.inPlacementMode==false)
+            {
+                interaction_text.text = "Open";
+                interaction_info_UI.SetActive(true);
+                selectedStorageBox = storageBox.gameObject;
+
+                if(Input.GetMouseButtonDown(0))
                 {
+                    StorageManager.Instance.OpenBox(storageBox);
+                }
+
+            }
+            else
+            {
+                if(selectedStorageBox != null)
+                {
+                    selectedStorageBox = null;
+                }
+            }
+
+
+
+
+
+            Animal animal = selectionTransform.GetComponent<Animal>();
+            if(animal && animal.playerInRange)
+            {
+
+                if(animal.isDead)
+                {
+                    interaction_text.text = "Loot";
+                    interaction_info_UI.SetActive(true);
                     centerDotImage.gameObject.SetActive(false);
                     handIcon.gameObject.SetActive(true);
-
                     handIsVisible = true;
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Lootable lootable = animal.GetComponent<Lootable>();
+                        Loot(lootable);
+                    }
                 }
                 else
                 {
-                    handIcon.gameObject.SetActive(false);
-                    centerDotImage.gameObject.SetActive(true);
+                    interaction_text.text = animal.animalName;
+                    interaction_info_UI.SetActive(true);
+                     centerDotImage.gameObject.SetActive(true);
+                      handIcon.gameObject.SetActive(false);
+                     handIsVisible = false;
+
+                    if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon() && EquipSystem.Instance.IsThereASwingLock()==false)
+                    {
+                        StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                    }
+
+                }
+              
+            }
+            if(!interactable && !animal)
+            {
+                onTarget = false;
+                handIsVisible = false;
+                centerDotImage.gameObject.SetActive(true);
+                handIcon.gameObject.SetActive(false);
+            }
+            if(!npc && !interactable && !animal && !choppabletree && !storageBox)
+            {
+                interaction_text.text = "";
+                interaction_info_UI.SetActive(false);
+                
+            }
 
 
-                    handIsVisible = false;
+
+
+
+        }
+        
+    }
+
+    private void Loot (Lootable lootable)
+    {
+        if(lootable.wasLootCalculated==false)
+        {
+            List<LootRecieved> recievedLoot = new List<LootRecieved>();
+
+            foreach(LootPossibility loot in lootable.possibleLoot)
+            {
+                var lootAmount = UnityEngine.Random.Range(loot.amountMin, loot.amountMax + 1);
+                if(lootAmount > 0)
+                {
+                    LootRecieved lt = new LootRecieved();
+                    lt.item = loot.item;
+                    lt.amount= lootAmount;
+                    recievedLoot.Add(lt);
                 }
 
 
-
-
             }
-            else //if there is a hit, but without an interactable script.
-            {
-                onTarget=false;
-                //interaction_info_UI.SetActive(false);
-                handIcon.gameObject.SetActive(false);
-                centerDotImage.gameObject.SetActive(true);
-
-
-                handIsVisible = false;
-            }
+            lootable.finalLoot=recievedLoot;
+            lootable.wasLootCalculated=true;
         }
-        else // if there is no hit at all.
+        //Spawning the loot on the ground
+        Vector3 lootSpawnPosition = lootable.gameObject.transform.position;
+        foreach(LootRecieved lootRecieved in lootable.finalLoot)
         {
-            onTarget=false;
-            interaction_info_UI.SetActive(false);
-            handIcon.gameObject.SetActive(false);
-            centerDotImage.gameObject.SetActive(true);
-
-            handIsVisible = false;
+            for(int i=0; i< lootRecieved.amount; i++)
+            {
+                GameObject lootSpawn = Instantiate(Resources.Load<GameObject>(lootRecieved.item.name + "_Model"),
+                   new Vector3(lootSpawnPosition.x, lootSpawnPosition.y + 0.2f, lootSpawnPosition.z),
+                   Quaternion.Euler(0, 0, 0));
+            }
         }
+        Destroy(lootable.gameObject);
+        //if chest dont destroy
+
+
+
+
     }
-    
+
+
+    IEnumerator DealDamageTo(Animal animal,float delay,int damage)
+    {
+        yield return new WaitForSeconds(delay);
+        animal.TakeDamage(damage);
+
+    }
+
+
+
     public void DisableSelection()
     {
         handIcon.enabled = false;

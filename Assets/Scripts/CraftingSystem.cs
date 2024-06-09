@@ -11,9 +11,9 @@ public class CraftingSystem : MonoBehaviour
     //Category Buttons
     Button toolsBTN, survivalBTN, refineBTN,constructionBTN;
     //Craft Buttons
-    Button craftAxeBTN, craftPlankBTN,craftFoundationBTN,craftWallBTN;
+    Button craftAxeBTN, craftPlankBTN, craftFoundationBTN, craftWallBTN; //craftStorageBoxBTN
     //Requirement Text
-    Text AxeReq1, AxeReq2, PlankReq1,FoundationReq1,WallReq1;
+    Text AxeReq1, AxeReq2, PlankReq1, FoundationReq1, WallReq1 ; //StorageBoxReq1
 
     public bool isOpen;
     //All Blueprint
@@ -21,7 +21,7 @@ public class CraftingSystem : MonoBehaviour
     private BluePrint PlankBLP = new BluePrint("Plank",2, 1, "Log", 1, "", 0);
     private BluePrint FoundationBLP = new BluePrint("Foundation", 1, 1, "Plank", 4, "", 0);
     private BluePrint WallBLP = new BluePrint("Wall", 1, 1, "Plank", 2, "", 0);
-
+    //private BluePrint StorageBoxBLP = new BluePrint("StorageBox", 1, 1, "Plank", 2, "", 0);
     public static CraftingSystem Instance { get; set; }
     private void Awake ()
     {
@@ -77,6 +77,13 @@ public class CraftingSystem : MonoBehaviour
 
         craftWallBTN = constructionScreenUI.transform.Find("Wall").transform.Find("Button").GetComponent<Button>();
         craftWallBTN.onClick.AddListener(delegate { CraftAnyItem(WallBLP); });
+        //StorageBox
+       // StorageBoxReq1 = survivalScreenUI.transform.Find("StorageBox").transform.Find("reg1").GetComponent<Text>();
+
+
+       // craftStorageBoxBTN = survivalScreenUI.transform.Find("StorageBox").transform.Find("Button").GetComponent<Button>();
+       // craftStorageBoxBTN.onClick.AddListener(delegate { CraftAnyItem(StorageBoxBLP); });
+
 
     }
 
@@ -275,6 +282,20 @@ public class CraftingSystem : MonoBehaviour
         {
             craftWallBTN.gameObject.SetActive(false);
         }
+        //StorageBox
+        //StorageBoxReq1.text = "2 Plank [" + plank_count + "]";
+
+
+        //if (plank_count >= 2 && InventorySystem.Instance.CheckSlotsAvailable(1))
+       // {
+         //   craftStorageBoxBTN.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+          //  craftStorageBoxBTN.gameObject.SetActive(false);
+        //}
+
+
     }
 
 }

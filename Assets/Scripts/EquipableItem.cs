@@ -9,6 +9,7 @@ public class EquipableItem : MonoBehaviour
 
 
     public Animator animator;
+    public bool swingWait = false;
 
 
     // Start is called before the first frame update
@@ -24,9 +25,10 @@ public class EquipableItem : MonoBehaviour
         if(Input.GetMouseButtonDown(0) &&
             InventorySystem.Instance.isOpen == false &&
             CraftingSystem.Instance.isOpen == false &&
-            SelectionManager.Instance.handIsVisible == false&& !ConstructionManager.Instance.inConstructionMode
+            SelectionManager.Instance.handIsVisible == false&& swingWait==false && !ConstructionManager.Instance.inConstructionMode
             ) 
         {
+            swingWait = true;
             StartCoroutine(SwingSoundDelay());
 
             animator.SetTrigger("hit");
@@ -44,7 +46,8 @@ public class EquipableItem : MonoBehaviour
     }
     IEnumerator SwingSoundDelay()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
+        swingWait = false;
     }
 }
